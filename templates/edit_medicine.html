@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Medicine - MediLarm</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Edit Medicine</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.name.label }}: {{ form.name(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.photo.label }}: {{ form.photo(class="form-control-file") }}
+            </div>
+            <h3>Medicine Schedule</h3>
+            <div class="form-check form-check-inline">
+                {{ form.before_breakfast(class="form-check-input", checked=medicine.before_breakfast) }}
+                {{ form.before_breakfast.label(class="form-check-label") }}
+            </div>
+            <div class="form-check form-check-inline">
+                {{ form.after_breakfast(class="form-check-input", checked=medicine.after_breakfast) }}
+                {{ form.after_breakfast.label(class="form-check-label") }}
+            </div>
+            <div class="form-check form-check-inline">
+                {{ form.breakfast(class="form-check-input", checked=medicine.breakfast) }}
+                {{ form.breakfast.label(class="form-check-label") }}
+            </div>
+            <div class="form-check form-check-inline">
+                {{ form.before_lunch(class="form-check-input", checked=medicine.before_lunch) }}
+                {{ form.before_lunch.label(class="form-check-label") }}
+            </div>
+            <div class="form-check form-check-inline">
+                {{ form.after_lunch(class="form-check-input", checked=medicine.after_lunch) }}
+                {{ form.after_lunch.label(class="form-check-label") }}
+            </div>
+            <div class="form-check form-check-inline">
+                {{ form.lunch(class="form-check-input", checked=medicine.lunch) }}
+                {{ form.lunch.label(class="form-check-label") }}
+            </div>
+            <div class="form-check form-check-inline">
+                {{ form.before_dinner(class="form-check-input", checked=medicine.before_dinner) }}
+                {{ form.before_dinner.label(class="form-check-label") }}
+            </div>
+            <div class="form-check form-check-inline">
+                {{ form.after_dinner(class="form-check-input", checked=medicine.after_dinner) }}
+                {{ form.after_dinner.label(class="form-check-label") }}
+            </div>
+            <div class="form-check form-check-inline">
+                {{ form.dinner(class="form-check-input", checked=medicine.dinner) }}
+                {{ form.dinner.label(class="form-check-label") }}
+            </div>
+            <div class="form-group mt-3">
+                {{ form.notes.label }}:
+                {{ form.notes(class="form-control") }}
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

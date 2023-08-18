@@ -1,0 +1,27 @@
+body {
+    margin: 20px;
+}
+
+.container {
+    max-width: 800px;
+}
+
+.medicine-photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.medicine-details-photo {
+    max-width: 400px;
+    max-height: 400px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+

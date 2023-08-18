@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ medicine.name }} Details - MediLarm{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ medicine.name }} Details - MediLarm</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">{{ medicine.name }} Details</h1>
+        <div>
+            <img src="{{ url_for('uploaded_file', filename=medicine.photo) }}" alt="Medicine Photo" class="medicine-photo">
+        </div>
+        <h3>Medicine Schedule</h3>
+        <ul class="list-group">
+            {% if medicine.before_breakfast %}
+                <li class="list-group-item">Before Breakfast</li>
+            {% endif %}
+            {% if medicine.after_breakfast %}
+                <li class="list-group-item">After Breakfast</li>
+            {% endif %}
+            {% if medicine.breakfast %}
+                <li class="list-group-item">During Breakfast</li>
+            {% endif %}
+            {% if medicine.before_lunch %}
+                <li class="list-group-item">Before Lunch</li>
+            {% endif %}
+            {% if medicine.after_lunch %}
+                <li class="list-group-item">After Lunch</li>
+            {% endif %}
+            {% if medicine.lunch %}
+                <li class="list-group-item">During Lunch</li>
+            {% endif %}
+            {% if medicine.before_dinner %}
+                <li class="list-group-item">Before Dinner</li>
+            {% endif %}
+            {% if medicine.after_dinner %}
+                <li class="list-group-item">After Dinner</li>
+            {% endif %}
+            {% if medicine.dinner %}
+                <li class="list-group-item">During Dinner</li>
+            {% endif %}
+        </ul>
+        <h3>Medicine Notes</h3>
+        <p>{{ medicine.notes }}</p>
+        <h3>Upcoming Scheduled Intake</h3>
+        <p>
+            {% if next_scheduled_time %}
+                <p>{{ next_scheduled_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+            {% else %}
+                <p>No upcoming scheduled intake.</p>
+            {% endif %}
+        </p>
+
+        <a href="{{ url_for('edit_medicine', medicine_id=medicine._id) }}" class="btn btn-primary mt-3">Edit Medicine</a>
+
+        <form method="post" action="{{ url_for('delete_medicine', medicine_id=medicine._id) }}" onsubmit="return confirm('Are you sure you want to delete this medicine?');">
+            <button type="submit" class="btn btn-danger mt-3">Delete Medicine</button>
+        </form>
+
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}MediLarm Dashboard{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title style="color: #80A1D4;">MediLarm Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background-color: #F7F4EA;
+        }
+
+        .navbar {
+            background-color: #80A1D4;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+        }
+
+        .btn-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-meal {
+            background-color: #75C9C8;
+            color: white;
+            margin-right: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn-meal.active {
+            background-color: #6A5D9C;
+        }
+
+        .list-group-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: none;
+            background-color: #DED9E2;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .medicine-photo {
+            max-width: 60px;
+            max-height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .badge-info {
+            background-color: #75C9C8;
+            font-size: 14px;
+        }
+
+        .alert {
+            background-color: #C0B9DD;
+            color: #6A5D9C;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        title {
+            color: #80A1D4;
+        }
+
+    </style>
+</head>
+<body style="background-color: #F7F4EA;">
+
+    <!-- <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}" style="font-size: 24px;">MediLarm</a>
+    </nav> -->
+
+    <div class="container">
+        <h1 class="mb-4">MediLarm Dashboard</h1>
+        <div class="btn-group mb-3">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-meal" style="background-color: #80A1D4;">All Medicines</a>
+            <a href="{{ url_for('dashboard', meal='before_breakfast') }}" class="btn btn-meal" style="background-color: #75C9C8;">Before Breakfast</a>
+            <a href="{{ url_for('dashboard', meal='after_breakfast') }}" class="btn btn-meal" style="background-color: #75C9C8;">After Breakfast</a>
+            <!-- <a href="{{ url_for('dashboard', meal='breakfast') }}" class="btn btn-meal" style="background-color: #75C9C8;">Breakfast</a> -->
+            <a href="{{ url_for('dashboard', meal='before_lunch') }}" class="btn btn-meal" style="background-color: #C0B9DD;">Before Lunch</a>
+            <a href="{{ url_for('dashboard', meal='after_lunch') }}" class="btn btn-meal" style="background-color: #C0B9DD;">After Lunch</a>
+            <!-- <a href="{{ url_for('dashboard', meal='lunch') }}" class="btn btn-meal" style="background-color: #C0B9DD;">Lunch</a> -->
+            <a href="{{ url_for('dashboard', meal='before_dinner') }}" class="btn btn-meal" style="background-color: #DED9E2;">Before Dinner</a>
+            <a href="{{ url_for('dashboard', meal='after_dinner') }}" class="btn btn-meal" style="background-color: #DED9E2;">After Dinner</a>
+            <!-- <a href="{{ url_for('dashboard', meal='dinner') }}" class="btn btn-meal" style="background-color: #DED9E2;">Dinner</a> -->
+            <!-- <a href="{{ url_for('dashboard', meal='morning') }}" class="btn btn-meal" style="background-color: #F7F4EA;">Morning</a>
+            <a href="{{ url_for('dashboard', meal='afternoon') }}" class="btn btn-meal" style="background-color: #F7F4EA;">Afternoon</a>
+            <a href="{{ url_for('dashboard', meal='evening') }}" class="btn btn-meal" style="background-color: #F7F4EA;">Evening</a> -->
+        </div>
+        {% if due_medicines %}
+        <div class="alert alert-warning" role="alert">
+            You have medicines due for intake. Check your schedule!
+        </div>
+        {% endif %}
+        <ul class="list-group">
+            {% for medicine in medicines %}
+            <li class="list-group-item">
+                <a href="{{ url_for('medicine_details', medicine_id=medicine._id) }}">
+                    <img src="{{ url_for('uploaded_file', filename=medicine.photo if medicine.photo else 'default.jpg') }}" alt="Medicine Photo" class="medicine-photo">
+                    {{ medicine.name }}
+                </a>
+                {% if medicine.notes %}
+                    <span class="badge badge-info ml-2">Notes Available</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+{% endblock %}
